@@ -1,0 +1,6 @@
+Orang
+Mobil
+Jam
+Handphone
+Sepatu
+Tas
