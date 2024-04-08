@@ -35,6 +35,9 @@ import androidx.core.app.ActivityCompat
 import android.Manifest
 import android.content.pm.PackageManager
 import android.widget.Toast
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
+import androidx.compose.ui.unit.sp
 
 
 @Suppress("DEPRECATION")
@@ -100,13 +103,13 @@ fun ImageShow(modifier: Modifier = Modifier, activity: Activity) {
         modifier = modifier,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-//        Text(
-//            text = "DETECTION OBJEK WITH YOLO",
-//            style = TextStyle(color = Color.White),
-//            modifier = Modifier.padding(8.dp)
-//        )
+        Text(
+            text = "DETECTION OBJEK WITH YOLO",
+            style = TextStyle(color = Color.White, fontSize = 24.sp),
+            modifier = Modifier.padding(20.dp)
+        )
         Image(
-            painter = painterResource(id = R.drawable._686385),
+            painter = painterResource(id = R.drawable.bg),
             contentDescription = null,
             modifier = Modifier
                 .size(300.dp)
