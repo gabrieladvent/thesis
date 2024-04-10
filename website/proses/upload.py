@@ -4,9 +4,10 @@ import numpy as np
 import random
 import streamlit as st
 import base64
+from tempfile import NamedTemporaryFile
 
 
-model = YOLO('best.pt')
+model = YOLO('best.pt', verbose=False)
 
 def draw_boxes(image, boxes, labels):
     img = np.array(image)
@@ -20,10 +21,7 @@ def draw_boxes(image, boxes, labels):
 
 
 def image_classify(image):
-    model = YOLO('best.pt')
     source = image
-
-    # Run inference on the source
     results = model(source, stream=True)
     
     boxes = []
@@ -38,43 +36,72 @@ def image_classify(image):
     return boxes, labels
 
 
-
-
 def video_classify(video_path):
-    # convert image to (224, 224)
-
-    # convert image to numpy array
-
-    # normalize image
-
-    # set model input
-    
-    # make prediction
-    
-    # index = np.argmax(prediction)
-
     cap = cv2.VideoCapture(video_path)
+    frames = []
 
     while cap.isOpened():
         ret, frame = cap.read()
         if not ret:
             break
 
-        # Detect objects
-        detections = image_classify(frame, model)
+        # Pastikan setiap frame memiliki ukuran yang sama
+        frame = cv2.resize(frame, (240, 240))
 
-        # Draw bounding boxes
-        for det in detections:
-            x1, y1, x2, y2 = map(int, det)
-            cv2.rectangle(frame, (x1, y1), (x2, y2), (255, 0, 0), 2)
-
-        cv2.imshow('Video', frame)
-
-        if cv2.waitKey(1) & 0xFF == ord('q'):
-            break
+        detections, labels = image_classify(frame)
+        frame_with_boxes = draw_boxes_video(frame, detections, labels)
+        frames.append(frame_with_boxes)
 
     cap.release()
-    cv2.destroyAllWindows()
+
+    return frames
+
+
+
+def draw_boxes_video(image, detections_list, labels_list):
+    img = np.array(image)
+    for detections, labels in zip(detections_list, labels_list):
+        for box, label in zip(detections, labels):
+            box = [int(coord) for coord in box]
+            color = (random.randint(100, 255), random.randint(100, 255), random.randint(100, 255))
+            cv2.rectangle(img, (box[0], box[1]), (box[2], box[3]), color, 5)
+            cv2.putText(img, label, (box[0], box[1] - 10), cv2.FONT_HERSHEY_SIMPLEX, 1, color, 2)
+        
+    return img
+
+
+def create_video(frames):
+    height, width, _ = frames[0].shape
+    fps = 30.0
+
+    # Membuat objek untuk menyimpan video dengan format MP4
+    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
+    temp_file = NamedTemporaryFile(delete=False, suffix='.mp4')
+    out = cv2.VideoWriter(temp_file.name, fourcc, fps, (width, height))
+
+    # Menyimpan setiap frame ke dalam video
+    for frame in frames:
+        out.write(frame)
+
+    # Menutup file video
+    out.release()
+
+    return temp_file.name
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # def set_background(image_file):
 #     with open(image_file, "rb") as f:
