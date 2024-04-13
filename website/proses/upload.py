@@ -5,6 +5,9 @@ import random
 import streamlit as st
 import base64
 from tempfile import NamedTemporaryFile
+import os
+import shutil
+
 
 
 model = YOLO('best.pt', verbose=False)
@@ -46,7 +49,7 @@ def video_classify(video_path):
             break
 
         # Pastikan setiap frame memiliki ukuran yang sama
-        frame = cv2.resize(frame, (240, 240))
+        # frame = cv2.resize(frame, (265, 265))
 
         detections, labels = image_classify(frame)
         frame_with_boxes = draw_boxes_video(frame, detections, labels)
@@ -70,23 +73,30 @@ def draw_boxes_video(image, detections_list, labels_list):
     return img
 
 
-def create_video(frames):
+import subprocess
+
+def create_video(frames, output_path='output.mp4', fps=30):
     height, width, _ = frames[0].shape
-    fps = 30.0
 
-    # Membuat objek untuk menyimpan video dengan format MP4
-    fourcc = cv2.VideoWriter_fourcc(*'mp4v')
-    temp_file = NamedTemporaryFile(delete=False, suffix='.mp4')
-    out = cv2.VideoWriter(temp_file.name, fourcc, fps, (width, height))
+    # Menyimpan setiap frame ke dalam direktori sementara
+    temp_dir = 'temp_frames/'
+    os.makedirs(temp_dir, exist_ok=True)
+    for i, frame in enumerate(frames):
+        cv2.imwrite(os.path.join(temp_dir, f'{i:05d}.png'), frame)
 
-    # Menyimpan setiap frame ke dalam video
-    for frame in frames:
-        out.write(frame)
+    # Menggunakan ffmpeg untuk membuat video dari frame-frame yang disimpan
+    ffmpeg_cmd = [
+        'ffmpeg', '-y', '-r', str(fps), '-f', 'image2', '-s', f'{width}x{height}',
+        '-i', os.path.join(temp_dir, '%05d.png'), '-vcodec', 'libx264', '-crf', '25', '-pix_fmt', 'yuv420p',
+        output_path
+    ]
+    subprocess.run(ffmpeg_cmd)
 
-    # Menutup file video
-    out.release()
+    # Menghapus frame-frame yang disimpan
+    shutil.rmtree(temp_dir)
 
-    return temp_file.name
+    return output_path
+
 
 
 

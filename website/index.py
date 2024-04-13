@@ -46,8 +46,11 @@ def main():
                 temp_video_path = temp_file.name
 
             frames = video_classify(temp_video_path)
-            output_path = create_video(frames)
-            st.video(output_path)       
+            output = create_video(frames, output_path='my_videotest.mp4')
+            video_file = open(output, 'rb')
+            video_bytes = video_file.read()
+
+            st.video(video_bytes)
 
 
 if __name__ == '__main__':
