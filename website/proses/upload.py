@@ -10,7 +10,7 @@ import shutil
 
 
 
-model = YOLO('best.pt', verbose=False)
+model = YOLO('best.pt')
 
 def draw_boxes(image, boxes, labels):
     img = np.array(image)

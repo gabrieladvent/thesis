@@ -5,7 +5,7 @@ from ultralytics import YOLO
 
 class ObjectDetector:
     def __init__(self):
-        self.model = YOLO('G:/SKRIPSI/best.pt')
+        self.model = YOLO('best.pt')
 
     def draw_boxes_video(self, image, detections_list, labels_list):
         img = np.array(image)
