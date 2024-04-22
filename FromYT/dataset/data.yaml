@@ -1,6 +1,0 @@
-train: G:/SKRIPSI/FromYT/dataset/train
-val: G:/SKRIPSI/FromYT/dataset/valid
-test: G:/SKRIPSI/FromYT/dataset/test
-
-nc: 6
-names: ['Handphone', 'Jam', 'Mobil', 'Orang', 'Sepatu', 'Tas']
