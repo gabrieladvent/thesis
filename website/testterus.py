@@ -15,7 +15,7 @@ st.title("Real-time Object Detection with YOLOv8")
 st.text("Press 'q' to quit")
 
 # Main loop
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 if not cam.isOpened():
     raise Exception("No camera")
 

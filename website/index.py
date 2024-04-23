@@ -1,11 +1,13 @@
 from PIL import Image
 import streamlit as st
-from streamlit_webrtc import webrtc_streamer
-from moviepy.editor import VideoFileClip
+# from streamlit_webrtc import webrtc_streamer
+# from moviepy.editor import VideoFileClip
 import os
 import io
 from tempfile import NamedTemporaryFile
 import tempfile
+from proses.realtime import ObjectDetector
+
 
 from proses.upload import image_classify, video_classify, draw_boxes, create_video
     
@@ -13,7 +15,10 @@ def main():
     st.title('Object Detection using YOLOv8')
     
     st.write("Realtime")
-    webrtc_streamer(key="example")
+    if st.button('Realtime'):
+        detector = ObjectDetector()
+        detector.run_realtime_detection()
+    # webrtc_streamer(key="example")
     
     html_temp_about1= """<br>"""
     st.markdown(html_temp_about1, unsafe_allow_html=True)

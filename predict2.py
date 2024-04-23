@@ -6,7 +6,7 @@ import numpy as np
 model_path = "testingFromLaptopFull/MODEL 2/TRAIN/best.pt"
 model = YOLO(model_path)
 
-cam = cv2.VideoCapture(1)
+cam = cv2.VideoCapture(0)
 if not cam.isOpened():
     raise Exception("No camera")
 
