@@ -1,12 +1,13 @@
 /labelImg
 /APLIKASI
-/FROMYT
 /VIDEO
 /RESULT
 
-/MODEL/annoted
-/MODEL/data
-/MODEL/result
-/MODEL/temp
-/MODEL/vali
+DOKUMENT/DAFTAR
+
+/MODELAWAL/annoted
+/MODELAWAL/data
+/MODELAWAL/result
+/MODELAWAL/temp
+/MODELAWAL/vali
 
