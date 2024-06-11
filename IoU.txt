@@ -1,0 +1,35 @@
+IoU, atau Intersection over Union, adalah metrik yang digunakan untuk mengukur kesesuaian antara prediksi bounding box dan ground truth bounding box dalam tugas deteksi objek. IoU didefinisikan sebagai rasio antara area tumpang tindih dari dua bounding box dengan area gabungan dari kedua bounding box tersebut.
+
+Berikut adalah detail tentang perbedaan antara IoU 50 dan IoU 50-95%:
+
+1. **IoU 50% (mAP50)**:
+   - IoU 50% berarti bahwa prediksi bounding box dianggap benar (true positive) jika tumpang tindihnya dengan ground truth setidaknya 50%.
+   - Metrik ini lebih toleran terhadap prediksi yang kurang akurat dalam hal lokasi dan ukuran bounding box.
+   - mAP50 adalah metrik yang lebih mudah dicapai dan sering digunakan sebagai indikator awal dari kinerja model deteksi objek.
+
+2. **IoU 50-95% (mAP50-95)**:
+   - IoU 50-95% mengacu pada evaluasi kinerja model dengan berbagai threshold IoU, dari 50% hingga 95%, dengan interval tertentu (biasanya setiap 5%).
+   - Ini mencakup IoU thresholds 50%, 55%, 60%, 65%, 70%, 75%, 80%, 85%, 90%, dan 95%.
+   - Metrik ini memberikan gambaran yang lebih komprehensif tentang kemampuan model dalam mendeteksi objek dengan presisi yang lebih tinggi. Semakin tinggi threshold IoU, semakin ketat persyaratan kesesuaian antara prediksi dan ground truth.
+   - mAP50-95 dikenal juga sebagai mAP COCO-style karena digunakan dalam evaluasi dataset COCO (Common Objects in Context), yang merupakan standar industri untuk mengukur kinerja model deteksi objek.
+
+### Semakin Tinggi Sebuah IoU
+
+- **Kesulitan Meningkat**:
+  - Semakin tinggi nilai IoU, semakin ketat persyaratan agar prediksi bounding box dapat dianggap sebagai true positive. Ini berarti model harus lebih akurat dalam menentukan posisi dan ukuran bounding box untuk mendapatkan nilai mAP yang tinggi pada threshold IoU yang tinggi.
+
+- **Akurasi Lebih Tinggi**:
+  - Evaluasi dengan IoU tinggi (misalnya, 75% ke atas) mengharuskan model untuk memiliki prediksi yang sangat dekat dengan ground truth. Ini mengukur kemampuan model dalam menghasilkan prediksi yang sangat presisi.
+
+- **Kinerja Model Lebih Teruji**:
+  - mAP50-95 memberikan penilaian yang lebih komprehensif tentang kinerja model karena mencakup berbagai tingkat kesulitan. Model yang menunjukkan kinerja baik pada semua threshold IoU cenderung lebih andal dan robust.
+
+### Kenapa Menggunakan Keduanya (IoU 50 dan IoU 50-95%)
+
+- **Pemahaman Lebih Lengkap**:
+  - Menggunakan kedua metrik membantu dalam memahami kemampuan model dalam berbagai tingkat akurasi. Sementara IoU 50% memberikan gambaran umum tentang kemampuan model dalam mendeteksi objek, IoU 50-95% memberikan penilaian mendetail tentang bagaimana model menangani deteksi dengan presisi yang lebih tinggi.
+
+- **Standar Evaluasi**:
+  - mAP50 adalah metrik yang lebih mudah dan cepat untuk diinterpretasikan, sering digunakan untuk pemantauan awal dan laporan hasil yang cepat. Sedangkan mAP50-95 adalah metrik standar industri yang lebih ketat, digunakan untuk evaluasi akhir dan perbandingan kinerja model dalam kompetisi atau publikasi penelitian.
+
+Dengan memahami perbedaan ini, Anda dapat lebih baik dalam menilai kinerja model deteksi objek dan membuat keputusan yang tepat dalam mengembangkan dan mengoptimalkan model tersebut.
