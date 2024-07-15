@@ -4,7 +4,6 @@ This repository is a collection of my thesis entitled **OBJECT RECOGNITION FOR C
 
 
 ## Disclaimer
-
 Please note that this research is for my educational purposes and should not be used in a production environment.
 
 **Hit star ⭐ if you like this repo!!!**
