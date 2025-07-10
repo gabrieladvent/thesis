@@ -42,7 +42,7 @@ opencv-python==4.9.0.80
 packaging==23.2
 pandas==2.2.1
 pillow==10.2.0
-protobuf==4.25.3
+protobuf==4.25.8
 psutil==5.9.8
 py-cpuinfo==9.0.0
 pyarrow==15.0.2
